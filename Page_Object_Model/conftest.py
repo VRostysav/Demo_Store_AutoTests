@@ -8,7 +8,7 @@ import os
 @pytest.fixture(scope="class")
 def init_driver(request):
     supported_browsers = ['chrome', 'ch', 'firefox', 'ff', 'headlesschrome', 'headlessfirefox']
-    os.environ['BROWSER'] = 'headlesschrome'
+    os.environ['BROWSER'] = 'ch'
     browser = os.environ.get('BROWSER', None)
 
     if not browser:
