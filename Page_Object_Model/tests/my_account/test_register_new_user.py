@@ -1,5 +1,6 @@
 import pytest
 from Page_Object_Model.src.pages.MyAccountSignedOut import MyAccountSignedOut
+from Page_Object_Model.src.helpers.generic_helpers import generate_random_email_and_password
 import random
 
 
@@ -9,8 +10,9 @@ class TestRegisterNewUser:
     def test_register_valid_new_user(self):
         my_account = MyAccountSignedOut(self.driver)
         my_account.go_to_my_account()
-        my_account.input_register_email(f'test+{random.randint(1,100)}@test.com')
-        # my_account.input_register_password('123_Qwe_123@')
-        # my_account.click_register_button()
+        random_email = generate_random_email_and_password()
+        my_account.input_register_email(random_email["email"])
+        my_account.input_register_password('1234abc')
+        my_account.click_register_button()
         # # verify that user is registered
 

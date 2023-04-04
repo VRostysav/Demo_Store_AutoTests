@@ -2,6 +2,7 @@ import pytest
 from Page_Object_Model.src.pages.MyAccountSignedOut import MyAccountSignedOut
 
 
+
 @pytest.mark.usefixtures("init_driver")
 class TestLoginNegative:
     @pytest.mark.tcid12
