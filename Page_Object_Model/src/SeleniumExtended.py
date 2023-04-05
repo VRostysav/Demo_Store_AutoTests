@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import random
 
 
 class SeleniumExtended:
@@ -25,3 +26,8 @@ class SeleniumExtended:
     def wait_until_element_is_visible(self, locator, timeout=None):
         timeout = timeout if timeout else self.default_timeout
         WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+
+    def wait_and_click_on_random_element(self, locator, timeout=None):
+        timeout = timeout if timeout else self.default_timeout
+        list_of_elems = WebDriverWait(self.driver, timeout).until(EC.visibility_of_all_elements_located(locator))
+        random.choice(list_of_elems).click()
