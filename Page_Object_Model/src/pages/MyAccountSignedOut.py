@@ -39,4 +39,4 @@ class MyAccountSignedOut(MyAccountSignedOutLocators):
         self.sl.wait_and_click(self.REGISTER_BUTTON)
 
     def verify_error_message(self, error_text):
-        self.sl.wait_until_error_message_is_displayed(self.ERROR_MESSAGE, error_text)
+        self.sl.wait_until_element_contains_text(self.ERROR_MESSAGE, error_text)
