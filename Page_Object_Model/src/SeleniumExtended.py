@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 import random
 
 
@@ -11,7 +12,8 @@ class SeleniumExtended:
     def wait_and_input_text(self, text, locator, timeout=None):
         timeout = timeout if timeout else self.default_timeout
 
-        WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator)).send_keys(text)
+        element = WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+        element.send_keys(text)
 
     def wait_and_click(self, locator, timeout=None):
         timeout = timeout if timeout else self.default_timeout
@@ -26,6 +28,16 @@ class SeleniumExtended:
     def wait_until_element_is_visible(self, locator, timeout=None):
         timeout = timeout if timeout else self.default_timeout
         WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+
+    def wait_and_get_elements(self, locator, timeout=None, error=None):
+        timeout = timeout if timeout else self.default_timeout
+        error = error if error else f"Unable to find elements by {locator}," \
+                                    f"after timeout {timeout}"
+        try:
+            elements = WebDriverWait(self.driver, timeout).until(EC.visibility_of_all_elements_located(locator))
+        except TimeoutException:
+            raise TimeoutException(error)
+        return  elements
 
     def wait_and_click_on_random_element(self, locator, timeout=None):
         timeout = timeout if timeout else self.default_timeout
