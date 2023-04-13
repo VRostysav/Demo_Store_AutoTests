@@ -27,6 +27,17 @@ class CartPage(CartPageLocators):
     def click_apply_coupon_button(self):
         self.sl.wait_and_click(self.APPLY_COUPON_BUTTON)
 
+    def get_displayed_message(self):
+        message = self.sl.wait_end_get_element_text(self.SUCCESS_MESSAGE)
+        return message
+
     def aplay_coupon(self, coupon_code):
         self.enter_coupon_code(coupon_code)
         self.click_apply_coupon_button()
+        txt = self.get_displayed_message()
+        assert txt == 'Coupon code applied successfully.', 'Unexpected message whe applaying coupon'
+
+    def click_proceed_to_checkout(self):
+        self.sl.wait_and_click(self.PROCEDE_TO_CHECKOUT)
+
+

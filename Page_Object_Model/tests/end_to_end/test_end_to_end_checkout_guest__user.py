@@ -25,12 +25,12 @@ class TestEndToEndCheckoutGestUser:
         products = cart_page.get_all_products_names_in_curt()
         assert len(products) == 1, f'Expected 1 item in curt but found {len(products)}'
         #enter coupon
+        # click add coupon
+        # verify that coupon appied succesfully
         coupon_code = GenericConfigs.FREE_COUPON
         cart_page.aplay_coupon(coupon_code)
-        #click add coupon
-        #cart_page.click_apply_coupon_button()
-        #chacke price after applying coupon
         # click proceed to checkout
+        cart_page.click_proceed_to_checkout()
         # fill in form
         #click place order
         #verify order is received

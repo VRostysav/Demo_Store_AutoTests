@@ -1,6 +1,8 @@
+import time
+
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException,StaleElementReferenceException
 import random
 
 
@@ -17,9 +19,13 @@ class SeleniumExtended:
 
     def wait_and_click(self, locator, timeout=None):
         timeout = timeout if timeout else self.default_timeout
-
-        WebDriverWait(self.driver, timeout). \
+        try:
+            WebDriverWait(self.driver, timeout). \
             until(EC.visibility_of_element_located(locator)).click()
+        except StaleElementReferenceException:
+            time.sleep(2)
+            WebDriverWait(self.driver, timeout). \
+                until(EC.visibility_of_element_located(locator)).click()
 
     def wait_until_element_contains_text(self, locator, text, timeout=None):
         timeout = timeout if timeout else self.default_timeout
@@ -43,3 +49,9 @@ class SeleniumExtended:
         timeout = timeout if timeout else self.default_timeout
         list_of_elems = WebDriverWait(self.driver, timeout).until(EC.visibility_of_all_elements_located(locator))
         random.choice(list_of_elems).click()
+
+    def wait_end_get_element_text(self, locator, timeout=None):
+        timeout = timeout if timeout else self.default_timeout
+        element = WebDriverWait.until(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+        element_text = element.text
+        return element_text
