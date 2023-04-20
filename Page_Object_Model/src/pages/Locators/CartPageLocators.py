@@ -7,3 +7,4 @@ class CartPageLocators:
     PRODUCSTS_IN_CURT = (By.CSS_SELECTOR, 'tr.cart_item > td.product-name')
     PROCEDE_TO_CHECKOUT = (By.CSS_SELECTOR, 'div.wc-proceed-to-checkout a')
     SUCCESS_MESSAGE = (By.CSS_SELECTOR, 'div.woocommerce-message')
+    LOCAL_PICKUP = (By.CSS_SELECTOR, '#shipping_method_0_local_pickup3')

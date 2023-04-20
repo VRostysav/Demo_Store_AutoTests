@@ -1,9 +1,11 @@
 import time
-
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException,StaleElementReferenceException
 import random
+from selenium.webdriver.common.action_chains import ActionChains
+
 
 
 class SeleniumExtended:
@@ -16,6 +18,7 @@ class SeleniumExtended:
 
         element = WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
         element.send_keys(text)
+        # return element
 
     def wait_and_click(self, locator, timeout=None):
         timeout = timeout if timeout else self.default_timeout
@@ -52,6 +55,12 @@ class SeleniumExtended:
 
     def wait_end_get_element_text(self, locator, timeout=None):
         timeout = timeout if timeout else self.default_timeout
-        element = WebDriverWait.until(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+        element = WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
         element_text = element.text
         return element_text
+
+    def scroll_and_click(self, locator, timeout=None):
+        timeout = timeout if timeout else self.default_timeout
+        element = WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(locator))
+        actions = ActionChains(self.driver)
+        actions.scroll_to_element(element).perform()

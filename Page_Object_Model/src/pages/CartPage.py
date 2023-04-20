@@ -1,4 +1,3 @@
-from Page_Object_Model.src.pages.Locators import  HomeSignOut_locators
 from Page_Object_Model.src.SeleniumExtended import SeleniumExtended
 from Page_Object_Model.src.helpers.config_helpers import add_base_url
 from Page_Object_Model.src.pages.Locators.CartPageLocators import CartPageLocators
@@ -22,7 +21,10 @@ class CartPage(CartPageLocators):
         return products_names
 
     def enter_coupon_code(self, coupon_code):
-        self.sl.wait_and_input_text(self.COUPON_FIELD, coupon_code)
+        self.sl.wait_and_input_text(coupon_code, self.COUPON_FIELD)
+
+    def select_local_pickup_radio(self):
+        self.sl.wait_and_click(self.LOCAL_PICKUP)
 
     def click_apply_coupon_button(self):
         self.sl.wait_and_click(self.APPLY_COUPON_BUTTON)
