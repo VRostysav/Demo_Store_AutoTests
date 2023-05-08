@@ -7,7 +7,6 @@ import random
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-
 class SeleniumExtended:
     def __init__(self, driver):
         self.driver = driver

@@ -1,6 +1,7 @@
 from Page_Object_Model.src.SeleniumExtended import SeleniumExtended
 from Page_Object_Model.src.helpers.config_helpers import add_base_url
 from Page_Object_Model.src.pages.Locators.OrderReceivedPageLocators import OrderReceivedPageLocators
+import allure
 
 
 class OrderReceivedPage(OrderReceivedPageLocators):
@@ -8,6 +9,7 @@ class OrderReceivedPage(OrderReceivedPageLocators):
         self.driver = driver
         self.sl = SeleniumExtended(self.driver)
 
+    @allure.step("verify order is received")
     def verify_order_received_page_loaded(self):
         self.sl.wait_until_element_contains_text(self.ORDER_TITLE, 'Order received')
 

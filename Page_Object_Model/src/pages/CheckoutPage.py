@@ -2,6 +2,7 @@ from Page_Object_Model.src.helpers.config_helpers import add_base_url
 from Page_Object_Model.src.SeleniumExtended import SeleniumExtended
 from Page_Object_Model.src.pages.Locators.CheckoutLocators import CheckoutLocators
 from Page_Object_Model.src.helpers.generic_helpers import generate_random_email_and_password
+import allure
 
 
 class CheckoutPage(CheckoutLocators):
@@ -47,15 +48,17 @@ class CheckoutPage(CheckoutLocators):
             email = rand_email["email"]
         self.sl.wait_and_input_text(email, self.EMAIL)
 
-    def filing_billing_information(self, city=None, postcode=None, phone=None, email=None):
+    @allure.step("Fill in billing information")
+    def filing_billing_information(self):
         self.input_first_name()
         self.input_last_name()
         # self.select_country_or_region()
         self.input_street_address()
-        self.input_city(city=city)
-        self.input_postcode(postcode=postcode)
-        self.input_phone(phone=phone)
-        self.input_email(email=email)
+        self.input_city()
+        self.input_postcode()
+        self.input_phone()
+        self.input_email()
 
+    @allure.step("Click place order")
     def click_place_order(self):
         self.sl.wait_and_click(self.PLACE_ORDER)
